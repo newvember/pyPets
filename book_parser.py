@@ -1,24 +1,16 @@
-from bs4 import BeautifulSoup
 import requests
-url = 'http://mignews.com/mobile'
-page = requests.get(url)
-#Проверим подключение:
-print(page.status_code)
+from bs4 import BeautifulSoup
 
-new_news = []
-news = []
-
-#Самое время воспользоваться BeautifulSoup4 и скормить ему наш page, 
-#указав в кавычках как он нам поможет 'html.parcer':
-soup = BeautifulSoup(page.text, "html.parser")
-#Если попросить его показать, что он там сохранил:
-#print(soup)
-
-#Теперь воспользуемся функцией поиска в BeautifulSoup4:
-news = soup.findAll('a', class_='lenta')
-
-for news_item in news:
-    if news_item.find('span', class_='time2 time3') is not None:
-        new_news.append(news_item.text)
-
-print(f"{news_item =}")
+print("Process started...")
+url = "https://readrate.com/rus/ratings/top100"
+req = requests.get(url)
+soup = BeautifulSoup(req.text, 'html.parser')
+books = soup.find_all('a', class_='title-link d-inline-block')
+names = soup.find_all('h4', class_='')
+file = open('names.txt', 'w')
+for items in names:
+	name = str(items).replace('<h4>', '').replace('</h4>', '')
+	file.write(name + '\n')
+file.close()
+print("Process successfull")
+quit()

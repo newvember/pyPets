@@ -6,7 +6,7 @@ req = requests.get(url)
 soup = BeautifulSoup(req.text, 'html.parser')
 newsList = soup.find('div', class_='container_sub_news_list_wrapper mode1')
 news = newsList.find_all('a', class_='')
-file = open('names.txt', 'w')
+file = open('news.txt', 'w')
 for items in news:
 	print(items)
 	file.write(str(items) + '\n')
